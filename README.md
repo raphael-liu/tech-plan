@@ -19,22 +19,32 @@
 
 ## 安装
 
-本仓库根目录就是技能目录，`SKILL.md` 为入口。运行技能不需要 Python、API Key 或专用 MCP；读取输入材料所需的文档工具由使用环境提供。
-
-### Codex
-
-将整个仓库克隆到 Codex 用户技能目录下的 `tech-plan` 文件夹：
+通过 [Skills CLI](https://github.com/vercel-labs/skills) 安装，需先安装 Node.js（版本要求见 CLI 官方说明）。在目标项目目录运行：
 
 ```bash
-# 将 <REPOSITORY_URL> 替换为发布后的仓库地址。
-git clone <REPOSITORY_URL> "${CODEX_HOME:-$HOME/.codex}/skills/tech-plan"
+npx skills add raphael-liu/tech-plan
 ```
 
-如果目标目录已经存在，先检查并备份自己的内容，避免重复克隆或覆盖。自定义安装目录时保留 `references/` 的相对位置。
+按交互提示选择安装目标。`tech-plan` 是同一份通用 Agent Skill，可用于 CLI 支持的 Codex、Claude Code、Cursor 等工具，无需安装不同的技能版本；安装目录、发现和调用方式由宿主工具决定。
 
-### 其他支持 Agent Skills 的工具
+默认安装到当前项目；需要跨项目使用时添加 `-g`：
 
-将仓库放入对应工具的技能发现目录，或按其本地技能加载方式指定本仓库。核心指令不绑定某个文档服务。其他工具的发现和调用方式以其支持能力为准。
+```bash
+npx skills add raphael-liu/tech-plan -g
+```
+
+可选：仅列出仓库内技能，或明确选择技能和目标 Agent：
+
+```bash
+npx skills add raphael-liu/tech-plan --list
+npx skills add raphael-liu/tech-plan --skill tech-plan -a claude-code -a codex
+```
+
+本仓库根目录的 `SKILL.md` 是唯一发现入口。技能运行不需要 Python、API Key 或专用 MCP；读取输入材料所需的文档工具由宿主提供。维护仓库才需要下文的 Python 开发环境。
+
+### skills.sh 收录
+
+技能源代码托管于本 GitHub 仓库，无需发布 npm 包。根据 [skills.sh FAQ](https://skills.sh/docs/faq)，用户通过 `npx skills add <owner/repo>` 安装后，平台根据 CLI 的匿名安装遥测自动跟踪并展示技能；仓库推送不等于已确认收录或排名。
 
 ## 语言支持
 
@@ -49,6 +59,8 @@ Ask any necessary follow-up questions in English and write the plan in English.
 ```
 
 ## 使用
+
+以下示例使用 `$tech-plan`；若宿主不支持此快捷写法，按该工具的技能调用方式选择 `tech-plan`，或在请求中直接指明技能名称。
 
 从访谈开始：
 
