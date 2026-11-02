@@ -19,22 +19,32 @@ Supports annual, quarterly, initiative, and architecture evolution plans, includ
 
 ## Installation
 
-The repository root is the skill directory; `SKILL.md` is the discovery entrypoint. Running the skill requires no Python, API key, or dedicated MCP server. The host agent supplies any tools needed to read source documents.
-
-### Codex
-
-Clone the repository into the `tech-plan` folder in your user skills directory:
+Install with the [Skills CLI](https://github.com/vercel-labs/skills). Install Node.js first; see the CLI's official documentation for its version requirement. From your target project directory, run:
 
 ```bash
-# Replace <REPOSITORY_URL> with the published repository URL.
-git clone <REPOSITORY_URL> "${CODEX_HOME:-$HOME/.codex}/skills/tech-plan"
+npx skills add raphael-liu/tech-plan
 ```
 
-If the target already exists, inspect and back up your content before making changes. Preserve the relative location of `references/` when installing elsewhere.
+Follow the prompts to select your target agents. The same Agent Skill works with CLI-supported tools such as Codex, Claude Code, and Cursor; no agent-specific edition is needed. Installation locations, discovery, and invocation depend on the host tool.
 
-### Other Agent Skills-compatible tools
+Installation is project-scoped by default. Add `-g` to make it available across projects:
 
-Place the repository in the tool's skill discovery directory or load it using the tool's local skill mechanism. Core instructions are independent of any document service. Discovery and invocation depend on the host tool's capabilities.
+```bash
+npx skills add raphael-liu/tech-plan -g
+```
+
+Optionally list skills without installing, or select the skill and target agents explicitly:
+
+```bash
+npx skills add raphael-liu/tech-plan --list
+npx skills add raphael-liu/tech-plan --skill tech-plan -a claude-code -a codex
+```
+
+The root `SKILL.md` is the single discovery entrypoint. Running the skill requires no Python, API key, or dedicated MCP server. The host provides any tools needed to read source documents. Python is needed only for repository development checks described below.
+
+### Listing on skills.sh
+
+The source is hosted in this GitHub repository; no npm package publication is required. According to the [skills.sh FAQ](https://skills.sh/docs/faq), installations using `npx skills add <owner/repo>` are tracked through anonymous CLI installation telemetry and surface skills in the directory. Pushing a repository alone does not establish that it has been listed or ranked.
 
 ## Language support
 
@@ -44,6 +54,8 @@ Place the repository in the tool's skill discovery directory or load it using th
 - The [English workflow](SKILL.en.md), references, and [contribution guide](CONTRIBUTING.en.md) are maintained alongside Chinese versions. `SKILL.md` remains the single discovery entrypoint.
 
 ## Usage
+
+The examples below use `$tech-plan`. If your host does not support that shorthand, select `tech-plan` through its skill invocation mechanism or name the skill directly in your request.
 
 Start with an interview:
 
